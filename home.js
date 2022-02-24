@@ -43,19 +43,26 @@ $(".dropdown-menu li a").click(function () {
 
 function addToCart() {
   if (selectedSize) {
-    selected.push({
-      img: 'img/classic-tee.jpg',
-      quantity: 1,
-      price: '$75',
-      size: selectedSize
-    });
+    let nextindex = $(".element").length;
+    let index = selected.findIndex(obj =>  obj.size === selectedSize);
+
+    if(selected.findIndex(obj =>  obj.size === selectedSize) == -1) {
+      selected.push({
+        img: 'img/classic-tee.jpg',
+        quantity: 1,
+        price: '$75',
+        size: selectedSize
+      });
+      
+    }
+
 
     $('#no-items').addClass('display-none');
     $('#size-error-msg').addClass('display-none');
     
     // append items to cart div
-    if ($(".element").length < selected.length) {
-      let nextindex = $(".element").length;
+    if ($(".element").length < selected.length && index == -1) {
+      let i = selected.findIndex(obj =>  obj.size === selectedSize);
       let content = `
         <div class='element' id='div_${nextindex}' style='display:inline-block; padding:10px'>
           <div class="width-30"> 
@@ -64,7 +71,7 @@ function addToCart() {
           <div class="two-col"> 
             <span class="font-bold"> Classic Tee </span>
             <span class='block-style'> 
-            ${selected[nextindex].quantity} x <span class='font-bold'>
+            <span id='qty_${i}'> ${selected[nextindex].quantity}</span> x <span class='font-bold'>
             ${selected[nextindex].price}</span> </span>
             <span class='block-style'> 
             Size: ${selected[nextindex].size}
@@ -78,6 +85,9 @@ function addToCart() {
       }
 
       $("#cartNum").text(selected.length);
+    } else {
+      let i = selected.findIndex(obj =>  obj.size === selectedSize);
+      $(`#qty_${i}`).text(selected[index].quantity += 1)
     }
 
     //show msgs
