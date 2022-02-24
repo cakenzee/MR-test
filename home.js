@@ -43,7 +43,6 @@ $(".dropdown-menu li a").click(function () {
 
 function addToCart() {
   if (selectedSize) {
-    let nextindex = $(".element").length;
     let index = selected.findIndex(obj =>  obj.size === selectedSize);
 
     if(selected.findIndex(obj =>  obj.size === selectedSize) == -1) {
@@ -64,17 +63,17 @@ function addToCart() {
     if ($(".element").length < selected.length && index == -1) {
       let i = selected.findIndex(obj =>  obj.size === selectedSize);
       let content = `
-        <div class='element' id='div_${nextindex}' style='display:inline-block; padding:10px'>
+        <div class='element' id='div_${i}' style='display:inline-block; padding:10px'>
           <div class="width-30"> 
-            <img src=${selected[nextindex].img} alt="Nature" class="responsive-img">
+            <img src=${selected[i].img} alt="Nature" class="responsive-img">
           </div>
           <div class="two-col"> 
             <span class="font-bold"> Classic Tee </span>
             <span class='block-style'> 
-            <span id='qty_${i}'> ${selected[nextindex].quantity}</span> x <span class='font-bold'>
-            ${selected[nextindex].price}</span> </span>
+            <span id='qty_${i}'> ${selected[i].quantity}</span> x <span class='font-bold'>
+            ${selected[i].price}</span> </span>
             <span class='block-style'> 
-            Size: ${selected[nextindex].size}
+            Size: ${selected[i].size}
           </div>
         </div>
         `
